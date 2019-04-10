@@ -25749,7 +25749,7 @@ if ("development" === 'production') {
   module.exports = require('./cjs/react-dom.development.js');
 }
 },{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"HeaderContainer.jsx":[function(require,module,exports) {
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -25790,6 +25790,33 @@ function (_Component) {
   }
 
   _createClass(AppContainer, [{
+    key: "addDestinations",
+    value: function addDestinations() {} //   $(document).ready(function(){
+    //     var next = 1;
+    //     $(".add-more").click(function(e){
+    //         e.preventDefault();
+    //         var addto = "#field" + next;
+    //         var addRemove = "#field" + (next);
+    //         next = next + 1;
+    //         var newIn = '<input autocomplete="off" class="input form-control" id="field' + next + '" name="field' + next + '" type="text">';
+    //         var newInput = $(newIn);
+    //         var removeBtn = '<button id="remove' + (next - 1) + '" class="btn btn-danger remove-me" >-</button></div><div id="field">';
+    //         var removeButton = $(removeBtn);
+    //         $(addto).after(newInput);
+    //         $(addRemove).after(removeButton);
+    //         $("#field" + next).attr('data-source',$(addto).attr('data-source'));
+    //         $("#count").val(next);
+    //             $('.remove-me').click(function(e){
+    //                 e.preventDefault();
+    //                 var fieldNum = this.id.charAt(this.id.length-1);
+    //                 var fieldID = "#field" + fieldNum;
+    //                 $(this).remove();
+    //                 $(fieldID).remove();
+    //             });
+    //     });
+    // });
+
+  }, {
     key: "render",
     value: function render() {
       return _react.default.createElement("div", null, _react.default.createElement("section", {
@@ -25806,41 +25833,7 @@ function (_Component) {
       }, "Hire a guide"), _react.default.createElement("a", {
         href: "#",
         class: "btn btn-secondary my-2"
-      }, "Hire a ride")))), _react.default.createElement("div", {
-        class: "container"
-      }, _react.default.createElement("div", {
-        class: "row text-center"
-      }, _react.default.createElement("input", {
-        type: "hidden",
-        name: "count",
-        value: "1",
-        class: "form-control"
-      }), _react.default.createElement("div", {
-        class: "control-group",
-        id: "fields"
-      }, _react.default.createElement("label", {
-        class: "control-label",
-        for: "field1"
-      }, "Add your destinantions"), _react.default.createElement("div", {
-        class: "controls",
-        id: "profs"
-      }, _react.default.createElement("form", {
-        class: "form-control"
-      }, _react.default.createElement("div", {
-        id: "field"
-      }, _react.default.createElement("input", {
-        autocomplete: "off",
-        class: "input",
-        id: "field1",
-        name: "prof1",
-        type: "text",
-        placeholder: "Add your Destinantion",
-        "data-items": "8"
-      }), _react.default.createElement("button", {
-        id: "b1",
-        class: "btn add-more",
-        type: "button"
-      }, "+"))), _react.default.createElement("br", null))))));
+      }, "Hire a ride")))));
     }
   }]);
 
@@ -25848,6 +25841,62 @@ function (_Component) {
 }(_react.Component);
 
 exports.default = AppContainer;
+},{"react":"node_modules/react/index.js"}],"MainBanner.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var Mainbanner =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Mainbanner, _Component);
+
+  function Mainbanner() {
+    _classCallCheck(this, Mainbanner);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Mainbanner).apply(this, arguments));
+  }
+
+  _createClass(Mainbanner, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", {
+        class: "row"
+      }, _react.default.createElement("div", {
+        class: "col"
+      }, _react.default.createElement("h1", null, "More than a guide"), _react.default.createElement("h4", null, "Now you can design your own adventure by just adding the destinations", _react.default.createElement("br", null), " and we will let you know how much it cost and how much time you need")));
+    }
+  }]);
+
+  return Mainbanner;
+}(_react.Component);
+
+exports.default = Mainbanner;
 },{"react":"node_modules/react/index.js"}],"main.jsx":[function(require,module,exports) {
 'use strict';
 
@@ -25857,10 +25906,13 @@ var _reactDom = require("react-dom");
 
 var _HeaderContainer = _interopRequireDefault(require("./HeaderContainer.jsx"));
 
+var _MainBanner = _interopRequireDefault(require("./MainBanner.jsx"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactDom.render)(_react.default.createElement(_HeaderContainer.default, null), document.getElementById('app'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./HeaderContainer.jsx":"HeaderContainer.jsx"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+(0, _reactDom.render)(_react.default.createElement(_MainBanner.default, null), document.getElementById('banner'));
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./HeaderContainer.jsx":"HeaderContainer.jsx","./MainBanner.jsx":"MainBanner.jsx"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
