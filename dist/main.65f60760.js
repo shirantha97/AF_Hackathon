@@ -25748,7 +25748,81 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"HeaderContainer.jsx":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp|chrome-extension|moz-extension):\/\/[^)\n]+/g);
+
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp|chrome-extension|moz-extension):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+
+  newLink.onload = function () {
+    link.remove();
+  };
+
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"App.css":[function(require,module,exports) {
+var reloadCSS = require('_css_loader');
+
+module.hot.dispose(reloadCSS);
+module.hot.accept(reloadCSS);
+},{"_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js"}],"TravelAround.png":[function(require,module,exports) {
+module.exports = "/TravelAround.7ed34222.png";
+},{}],"HeaderContainer.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25757,6 +25831,12 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
+
+require("./App.css");
+
+var _TravelAround = _interopRequireDefault(require("./TravelAround.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
@@ -25777,6 +25857,10 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var headerStyle = {
+  backgroundColor: '#CC8400'
+};
 
 var AppContainer =
 /*#__PURE__*/
@@ -25819,21 +25903,16 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("div", null, _react.default.createElement("section", {
-        class: "jumbotron text-center"
+      return _react.default.createElement("div", {
+        className: "header"
+      }, _react.default.createElement("section", {
+        class: "jumbotron text-center",
+        style: headerStyle
       }, _react.default.createElement("div", {
         class: "container"
-      }, _react.default.createElement("h1", {
-        class: "jumbotron-heading"
-      }, "Travel Around"), _react.default.createElement("p", {
-        class: "lead text-muted"
-      }, "We can get you the best approximation of your cost an time for your custermized journey@"), _react.default.createElement("p", null, _react.default.createElement("a", {
-        href: "#",
-        class: "btn btn-primary my-2"
-      }, "Hire a guide"), _react.default.createElement("a", {
-        href: "#",
-        class: "btn btn-secondary my-2"
-      }, "Hire a ride")))));
+      }, _react.default.createElement("img", {
+        src: _TravelAround.default
+      }))));
     }
   }]);
 
@@ -25841,7 +25920,7 @@ function (_Component) {
 }(_react.Component);
 
 exports.default = AppContainer;
-},{"react":"node_modules/react/index.js"}],"MainBanner.jsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./App.css":"App.css","./TravelAround.png":"TravelAround.png"}],"MainBanner.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -25897,6 +25976,219 @@ function (_Component) {
 }(_react.Component);
 
 exports.default = Mainbanner;
+},{"react":"node_modules/react/index.js"}],"FormBg.png":[function(require,module,exports) {
+module.exports = "/FormBg.4e0da346.png";
+},{}],"Form.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _FormBg = _interopRequireDefault(require("./FormBg.png"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var imgUrl = "https://www.etiqa.com.my/sites/Satellite?blobcol=urldata&blobkey=id&blobtable=MungoBlobs&blobwhere=1466369468682&ssbinary=true";
+var formStyle = {
+  padding: "5px"
+};
+var btnStyle = {
+  marginLeft: "10px"
+};
+var formBackground = {
+  padding: "5px"
+};
+var reviewBg = {
+  backgroundColor: 'black'
+};
+
+var Form =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Form, _Component);
+
+  function Form() {
+    _classCallCheck(this, Form);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Form).apply(this, arguments));
+  }
+
+  _createClass(Form, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", null, _react.default.createElement("form", {
+        style: formBackground
+      }, _react.default.createElement("div", {
+        id: "field",
+        style: formStyle
+      }, _react.default.createElement("input", {
+        autocomplete: "off",
+        class: "input",
+        id: "field1",
+        name: "prof1",
+        type: "text",
+        placeholder: "Add your Starting location",
+        "data-items": "8"
+      }), _react.default.createElement("button", {
+        style: btnStyle,
+        id: "b1",
+        class: "btn add-more",
+        type: "button"
+      }, "+")), _react.default.createElement("div", {
+        id: "field",
+        style: formStyle
+      }, _react.default.createElement("input", {
+        autocomplete: "off",
+        class: "input",
+        id: "field1",
+        name: "prof1",
+        type: "text",
+        placeholder: "Add your Starting location",
+        "data-items": "8"
+      }), _react.default.createElement("button", {
+        style: btnStyle,
+        id: "b1",
+        class: "btn add-more",
+        type: "button"
+      }, "+"))));
+    }
+  }]);
+
+  return Form;
+}(_react.Component);
+
+exports.default = Form;
+},{"react":"node_modules/react/index.js","./FormBg.png":"FormBg.png"}],"Reviews.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var reviewHeader = {
+  backgroundColor: "black",
+  marginTop: "10px",
+  color: "white"
+};
+
+var Reviews =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(Reviews, _Component);
+
+  function Reviews() {
+    _classCallCheck(this, Reviews);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(Reviews).apply(this, arguments));
+  }
+
+  _createClass(Reviews, [{
+    key: "render",
+    value: function render() {
+      return _react.default.createElement("div", null, _react.default.createElement("h3", {
+        class: "text-center",
+        style: reviewHeader
+      }, "REVIEWS"), _react.default.createElement("div", {
+        class: "container"
+      }, _react.default.createElement("div", {
+        class: "card-deck mb-3 text-center"
+      }, _react.default.createElement("div", {
+        class: "card mb-4 box-shadow"
+      }, _react.default.createElement("div", {
+        class: "card-header "
+      }, _react.default.createElement("h4", {
+        class: "my-0 font-weight-normal"
+      }, "Yohan Silva")), _react.default.createElement("div", {
+        class: "card-body"
+      }, _react.default.createElement("h1", {
+        class: "card-title pricing-card-title"
+      }), _react.default.createElement("ul", {
+        class: "list-unstyled mt-3 mb-4"
+      }, _react.default.createElement("h3", null, "Superb estimate!"), _react.default.createElement("h4", {
+        class: "my-0 font-weight-normal"
+      }, "Rating 5 Starts")))), _react.default.createElement("div", {
+        class: "card mb-4 box-shadow"
+      }, _react.default.createElement("div", {
+        class: "card-header"
+      }, _react.default.createElement("h4", {
+        class: "my-0 font-weight-normal"
+      }, "Yohan Silva")), _react.default.createElement("div", {
+        class: "card-body"
+      }, _react.default.createElement("h1", {
+        class: "card-title pricing-card-title"
+      }), _react.default.createElement("ul", {
+        class: "list-unstyled mt-3 mb-4"
+      }, _react.default.createElement("h3", null, "Superb estimate!"), _react.default.createElement("h4", {
+        class: "my-0 font-weight-normal"
+      }, "Rating 5 Starts")))), _react.default.createElement("div", {
+        class: "card mb-4 box-shadow"
+      }, _react.default.createElement("div", {
+        class: "card-header"
+      }, _react.default.createElement("h4", {
+        class: "my-0 font-weight-normal"
+      }, "Yohan Silva")), _react.default.createElement("div", {
+        class: "card-body"
+      }, _react.default.createElement("h1", {
+        class: "card-title pricing-card-title"
+      }), _react.default.createElement("ul", {
+        class: "list-unstyled mt-3 mb-4"
+      }, _react.default.createElement("h3", null, "Superb estimate!"), _react.default.createElement("h4", {
+        class: "my-0 font-weight-normal"
+      }, "Rating 5 Starts")))))));
+    }
+  }]);
+
+  return Reviews;
+}(_react.Component);
+
+exports.default = Reviews;
 },{"react":"node_modules/react/index.js"}],"main.jsx":[function(require,module,exports) {
 'use strict';
 
@@ -25908,11 +26200,17 @@ var _HeaderContainer = _interopRequireDefault(require("./HeaderContainer.jsx"));
 
 var _MainBanner = _interopRequireDefault(require("./MainBanner.jsx"));
 
+var _Form = _interopRequireDefault(require("./Form.jsx"));
+
+var _Reviews = _interopRequireDefault(require("./Reviews.jsx"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _reactDom.render)(_react.default.createElement(_HeaderContainer.default, null), document.getElementById('app'));
 (0, _reactDom.render)(_react.default.createElement(_MainBanner.default, null), document.getElementById('banner'));
-},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./HeaderContainer.jsx":"HeaderContainer.jsx","./MainBanner.jsx":"MainBanner.jsx"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+(0, _reactDom.render)(_react.default.createElement(_Form.default, null), document.getElementById('forms'));
+(0, _reactDom.render)(_react.default.createElement(_Reviews.default, null), document.getElementById('reviews'));
+},{"react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./HeaderContainer.jsx":"HeaderContainer.jsx","./MainBanner.jsx":"MainBanner.jsx","./Form.jsx":"Form.jsx","./Reviews.jsx":"Reviews.jsx"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -25940,7 +26238,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "11963" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "13145" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

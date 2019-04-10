@@ -1,10 +1,18 @@
 "use strict";
 import React, { Component } from "react";
+import './App.css';
+import TravelAround from "./TravelAround.png";
+
+const headerStyle ={ 
+      backgroundColor : '#CC8400' 
+}
+
 export default class AppContainer extends Component {
   constructor(props) {
     super(props);
   }
 
+  
   addDestinations() {}
   //   $(document).ready(function(){
   //     var next = 1;
@@ -35,10 +43,11 @@ export default class AppContainer extends Component {
 
   render() {
     return (
-      <div>
-        <section class="jumbotron text-center">
+      <div className="header">
+        <section class="jumbotron text-center" style={headerStyle}>
           <div class="container">
-            <h1 class="jumbotron-heading">Travel Around</h1>
+          <img src={TravelAround} ></img>
+            {/* <h1 class="jumbotron-heading">Travel Around</h1>
             <p class="lead text-muted">
               We can get you the best approximation of your cost an time for
               your custermized journey@
@@ -50,7 +59,7 @@ export default class AppContainer extends Component {
               <a href="#" class="btn btn-secondary my-2">
                 Hire a ride
               </a>
-            </p>
+            </p> */}
           </div>
         </section>
 
@@ -88,7 +97,7 @@ export default class AppContainer extends Component {
             </div>
           </div>
         </div> */}
-        
+
       </div>
     );
   }
